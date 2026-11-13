@@ -1,1 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Virtual Laboratory</title><link rel="stylesheet" href="../css/main.css"></head><body>
+<nav><b>MSD Lab</b><a href="../index.html">Home</a><a class="on" href="laboratory.html">Laboratory</a><a href="theory.html">Theory</a><a href="theory.html#about">About project</a></nav>
+<main class="grid lab"><aside>
+<div class="panel"><h2>System parameters</h2>
+<label>Mass m <output id="vm"></output></label><input id="m" type="range" min="0.5" max="10" step="0.1" value="1">
+<label>Stiffness k <output id="vk"></output></label><input id="k" type="range" min="10" max="500" step="1" value="100">
+<label>Damping c <output id="vc"></output></label><input id="c" type="range" min="0" max="100" step="any" value="2">
+<label>Initial displacement x(0) (m)</label><input id="x0" type="number" step="0.01" value="0.05">
+<label>Initial velocity v(0) (m/s)</label><input id="v0" type="number" step="0.1" value="0">
+<div class="row"><button class="alt pre" data-z="0.1">Under</button><button class="alt pre" data-z="1">Critical</button><button class="alt pre" data-z="2.5">Over</button><button class="alt pre" data-z="0">Undamped</button></div>
+<p class="mu" style="font-size:12px">Presets set c = ζ·cc, limited to the 0–100 N·s/m slider range.</p></div>
+<div class="panel"><h2>External force</h2>
+<label>Input</label><select id="ft"><option value="step">Step F0·u(t−t0)</option><option value="impulse">Impulse J·δ(t−t0)</option><option value="sine">Sinusoid F0·sin(Ωt+φ)</option></select>
+<div class="f f-step f-sine"><label>Force magnitude F0 (N)</label><input id="F0" type="number" step="1" value="10"></div>
+<div class="f f-impulse"><label>Impulse J (N·s)</label><input id="J" type="number" step="0.5" value="2"></div>
+<div class="f f-step f-impulse"><label>Application time t0 (s)</label><input id="t0" type="number" step="0.1" min="0" value="1"></div>
+<div class="f f-sine"><label>Angular frequency Ω (rad/s)</label><input id="Om" type="number" step="0.5" min="0" value="5"></div>
+<div class="f f-sine"><label>Phase φ (degrees)</label><input id="ph" type="number" step="5" value="0"></div>
+<label>Duration T (s)</label><input id="T" type="number" step="1" min="1" max="60" value="10">
+<label>Time step dt (s)</label><input id="dt" type="number" step="0.001" min="0.0001" max="0.05" value="0.005"></div></aside>
+<section>
+<div class="panel"><canvas id="sim" width="900" height="300"></canvas>
+<div class="row"><button id="bStart">Start</button><button id="bPause" class="alt">Pause</button><button id="bReset" class="alt">Reset</button><button id="bRestart" class="alt">Restart</button><span class="mu">Speed</span><input id="sp" type="range" min="0.1" max="3" step="0.1" value="1" style="width:130px"><span id="ro" class="mu"></span></div></div>
+<div class="panel"><h2>Damping analysis</h2><div id="info"></div></div>
+<div class="panel"><h2>Response graphs</h2><div class="row"><label style="margin:0"><input id="cmp" type="checkbox" style="width:auto"> Compare the three damping cases (same m, k, input)</label><span id="err" class="mu"></span></div><br>
+<div class="grid g2"><canvas id="gx"></canvas><canvas id="gv"></canvas><canvas id="ga"></canvas><canvas id="gF"></canvas></div>
+<div class="row"><button id="bCSV" class="alt">Download CSV</button></div></div>
+<div class="panel"><h2>Laplace transform analysis</h2><pre id="lap"></pre></div>
+<div class="panel"><h2>Experiments and observations</h2><div class="row"><input id="nm" placeholder="Experiment name" style="max-width:240px"><button id="bSave">Save experiment</button><button id="bClear" class="alt">Clear experiments</button></div>
+<p class="mu">Saved runs are overlaid on the graphs. Values are simulation outputs, not physical measurements.</p>
+<div class="scroll"><table><thead><tr><th>#  Name</th><th>m (kg)</th><th>k (N/m)</th><th>c (N·s/m)</th><th>ωn (rad/s)</th><th>cc</th><th>ζ</th><th>max|x| (m)</th><th>x(T) (m)</th><th>Class</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+</section></main>
+<script src="../js/rk4-solver.js"></script><script src="../js/force-inputs.js"></script><script src="../js/damping-analysis.js"></script><script src="../js/laplace-analysis.js"></script><script src="../js/animation.js"></script><script src="../js/app.js"></script></body></html>
 
