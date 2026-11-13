@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mass-Spring-Damper Simulation Laboratory</title><link rel="stylesheet" href="css/main.css"></head><body>
+<nav><b>MSD Lab</b><a class="on" href="index.html">Home</a><a href="pages/laboratory.html">Laboratory</a><a href="pages/theory.html">Theory</a><a href="pages/theory.html#about">About project</a></nav>
+<main>
+<section class="grid g2"><div class="panel"><h1>Mathematical Modelling and Simulation of a Mass-Spring-Damper System</h1>
+<p class="mu">Differential equations with constant coefficients, Laplace transforms and RK4 numerical integration, in one interactive laboratory. Engineering Mathematics PBL, Modules 5 and 6.</p>
+<div class="row"><a class="btn" href="pages/laboratory.html">Start laboratory</a><a class="btn" style="background:none;border:1px solid var(--b)" href="pages/theory.html">Explore mathematical theory</a></div></div>
+<div class="panel"><canvas id="pv" width="560" height="260"></canvas></div></section>
+<section class="grid g2"><div class="panel"><h2>Key equations</h2><p class="eq">m x″ + c x′ + k x = F(t)<br>X(s) = [F(s) + m s x(0) + m x′(0) + c x(0)] / (m s² + c s + k)<br>G(s) = 1 / (m s² + c s + k)<br>ωn = √(k/m),  ζ = c / (2√(mk))</p></div>
+<div class="panel"><h2>Objectives</h2><ul><li>Model the system with a second-order constant-coefficient ODE.</li><li>Solve it with the Laplace transform and its inverse.</li><li>Check an RK4 numerical solution against the exact one.</li><li>Compare underdamped, critically damped and overdamped responses.</li></ul></div></section>
+<section class="panel" id="team"><h2>Project team</h2><p class="mu">Jaypee Institute of Information Technology University, Noida · Electronics &amp; Communication Engineering · 2026–2027</p>
+<p>Student 1: [Name and Enrollment Number]<br>Student 2: [Name and Enrollment Number]<br>Student 3: [Name and Enrollment Number]<br>Student 4: [Name and Enrollment Number]<br>Student 5: [Name and Enrollment Number]<br>Faculty: [Faculty Name]</p></section>
+</main>
+<script src="js/rk4-solver.js"></script><script src="js/force-inputs.js"></script><script src="js/animation.js"></script>
+<script>const cv=document.getElementById('pv'),p={m:1,k:100,c:2,x0:.05,v0:0},r=MSD.simulate(p,MSD.makeForce('step',{F0:0,t0:0}),{dt:.005,T:6});let s=performance.now();
+(function f(n){const i=Math.floor(((n-s)/1000)%6/.005);MSD.drawSystem(cv,r.x[i],0,2400);requestAnimationFrame(f)})(s)</script></body></html>
